@@ -156,4 +156,62 @@ public class PricingServiceTest {
         // THEN
         assertThat(value, equalTo(5.50));
     }
+
+    @Test
+    public void shouldReturnCorrectValueForOneApple() {
+        // GIVEN
+        final Map<String, Integer> shoppingCart = new HashMap<>();
+        shoppingCart.put("apple", 1);
+
+        // WHEN
+        double value = underTest.calculateValue(shoppingCart);
+
+        // THEN
+        assertThat(value, equalTo(0.10));
+    }
+
+    @Test
+    public void shouldReturnCorrectValueForTwoApples() {
+        // GIVEN
+        final Map<String, Integer> shoppingCart = new HashMap<>();
+        shoppingCart.put("apple", 2);
+
+        // WHEN
+        double value = underTest.calculateValue(shoppingCart);
+
+        // THEN
+        assertThat(value, equalTo(0.20));
+    }
+
+    @Test
+    public void shouldReturnCorrectValueForOneTinOfSoupOneBreadOneMilkAndAnApple() {
+        // GIVEN
+        final Map<String, Integer> shoppingCart = new HashMap<>();
+        shoppingCart.put("soup", 1);
+        shoppingCart.put("bread", 1);
+        shoppingCart.put("milk", 1);
+        shoppingCart.put("apple", 1);
+
+        // WHEN
+        double value = underTest.calculateValue(shoppingCart);
+
+        // THEN
+        assertThat(value, equalTo(2.85));
+    }
+
+    @Test
+    public void shouldReturnCorrectValueForMultipleTinsOfSoupLoavesOfBreadBottlesOfMilkAndTwoApples() {
+        // GIVEN
+        final Map<String, Integer> shoppingCart = new HashMap<>();
+        shoppingCart.put("soup", 2);
+        shoppingCart.put("bread", 2);
+        shoppingCart.put("milk", 2);
+        shoppingCart.put("apple", 2);
+
+        // WHEN
+        double value = underTest.calculateValue(shoppingCart);
+
+        // THEN
+        assertThat(value, equalTo(5.70));
+    }
 }
