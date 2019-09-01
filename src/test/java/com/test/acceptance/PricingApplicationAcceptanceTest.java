@@ -1,5 +1,6 @@
 package com.test.acceptance;
 
+import static java.time.format.DateTimeFormatter.ISO_DATE;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -52,7 +53,7 @@ public class PricingApplicationAcceptanceTest {
     public void shouldCalculate6ApplesAndABottleOfMilkBoughtIn5DaysTime() {
         // GIVEN
         final String shoppingCartItemsJson = "{\"apple\":6, \"milk\":1}";
-        final String calculationDate = LocalDate.now().plusDays(5).format(DateTimeFormatter.ISO_DATE);
+        final String calculationDate = LocalDate.now().plusDays(5).format(ISO_DATE);
 
         // WHEN
         PricingApplication.main(asArray(shoppingCartItemsJson, calculationDate));
@@ -66,7 +67,7 @@ public class PricingApplicationAcceptanceTest {
     public void shouldCalculate3Apples2TinsOfSoupAndALoafOfBreadBoughtIn5DaysTime() {
         // GIVEN
         final String shoppingCartItemsJson = "{\"apple\":3, \"soup\":2, \"bread\":1}";
-        final String calculationDate = LocalDate.now().plusDays(5).format(DateTimeFormatter.ISO_DATE);
+        final String calculationDate = LocalDate.now().plusDays(5).format(ISO_DATE);
 
         // WHEN
         PricingApplication.main(asArray(shoppingCartItemsJson, calculationDate));
