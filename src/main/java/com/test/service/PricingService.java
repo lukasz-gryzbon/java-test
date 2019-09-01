@@ -18,7 +18,7 @@ public class PricingService {
         final int discountedLoavesOfBread = getDiscountedLoavesOfBread(shoppingCart);
         return round(shoppingCart.entrySet().stream().mapToDouble(entry -> {
             if (discountedLoavesOfBread > 0 && entry.getKey().equals(BREAD)) {
-                int fullPriceLoaves = Math.max(entry.getValue().intValue() - discountedLoavesOfBread, 0);
+                final int fullPriceLoaves = Math.max(entry.getValue().intValue() - discountedLoavesOfBread, 0);
                 final double breadPrice = entry.getKey().getPrice();
                 return fullPriceLoaves * breadPrice + discountedLoavesOfBread * breadPrice / 2.0;
             } else {
