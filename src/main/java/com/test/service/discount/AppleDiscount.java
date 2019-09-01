@@ -9,28 +9,21 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class AppleDiscount implements Discount {
+public class AppleDiscount extends TimeLimitedDiscount implements Discount {
 
+    private static final double DISCOUNT = 0.1;
     private static final int DECIMAL_PLACES = 2;
 
-    private final LocalDate startDate;
-    private final LocalDate endDate;
-
     public AppleDiscount(final LocalDate startDate, final LocalDate endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+        super(startDate, endDate);
     }
 
     @Override
     public double calculateDiscountValue(final Map<ProductEnum, Integer> shoppingCart, final LocalDate localDate) {
         if (shoppingCart.containsKey(APPLE) && isDiscountApplicable(localDate) ) {
-            return round(shoppingCart.get(APPLE) * APPLE.getPrice() * 0.1);
+            return round(shoppingCart.get(APPLE) * APPLE.getPrice() * DISCOUNT);
         }
         return 0.0;
-    }
-
-    private boolean isDiscountApplicable(LocalDate localDate) {
-        return (localDate.isEqual(startDate) || localDate.isAfter(startDate)) && (localDate.isBefore(endDate) || localDate.isEqual(endDate));
     }
 
     private double round(double value) {

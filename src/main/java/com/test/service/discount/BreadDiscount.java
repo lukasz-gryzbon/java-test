@@ -8,14 +8,12 @@ import com.test.model.ProductEnum;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class BreadDiscount implements Discount {
+public class BreadDiscount extends TimeLimitedDiscount implements Discount {
 
-    private final LocalDate startDate;
-    private final LocalDate endDate;
+    private static final double DISCOUNT = 0.5;
 
     public BreadDiscount(final LocalDate startDate, final LocalDate endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+        super(startDate, endDate);
     }
 
     @Override
@@ -26,14 +24,10 @@ public class BreadDiscount implements Discount {
                 final Integer loavesOfBread = shoppingCart.get(BREAD);
                 final int fullPriceLoaves = Math.max(loavesOfBread - maxDiscountedLoaves, 0);
                 final int discountedLoaves = loavesOfBread - fullPriceLoaves;
-                return discountedLoaves * BREAD.getPrice() / 2;
+                return discountedLoaves * BREAD.getPrice() * DISCOUNT;
             }
         }
         return 0.0;
-    }
-
-    private boolean isDiscountApplicable(LocalDate localDate) {
-        return (localDate.isEqual(startDate) || localDate.isAfter(startDate)) && (localDate.isBefore(endDate) || localDate.isEqual(endDate));
     }
 
     private int getDiscountedLoavesOfBread(Map<ProductEnum, Integer> shoppingCart) {
