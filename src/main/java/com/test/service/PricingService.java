@@ -6,6 +6,8 @@ import java.util.Map;
 
 public class PricingService {
 
+    private static final int DECIMAL_PLACES = 2;
+
     public double calculateValue(Map<String, Integer> shoppingCart) {
         if (shoppingCart == null || shoppingCart.size() == 0) {
             return 0;
@@ -20,6 +22,10 @@ public class PricingService {
             }
         }
 
-        return BigDecimal.valueOf(totalValue).setScale(2, RoundingMode.HALF_UP).doubleValue();
+        return round(totalValue);
+    }
+
+    private double round(double totalValue) {
+        return BigDecimal.valueOf(totalValue).setScale(DECIMAL_PLACES, RoundingMode.HALF_UP).doubleValue();
     }
 }
