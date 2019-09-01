@@ -29,11 +29,11 @@ public class PricingService {
     }
 
     public double calculateValue(final Map<ProductEnum, Integer> shoppingCart, final LocalDate localDate) {
-        logger.debug("Processing cart for date:{}, cart:{}", localDate, shoppingCart);
+        logger.debug("Processing cart:{}, for date:{}", shoppingCart, localDate);
         validate(shoppingCart);
         final double discountValue = discounts.stream().mapToDouble(discount -> discount.calculateDiscountValue(shoppingCart, localDate)).sum();
         final double valueBeforeDiscount = shoppingCart.entrySet().stream().mapToDouble(entry -> entry.getValue() * entry.getKey().getPrice()).sum();
-        logger.debug("valueBeforeDiscount:{}, discountValue:{}", valueBeforeDiscount, discountValue);
+        logger.trace("valueBeforeDiscount:{}, discountValue:{}", valueBeforeDiscount, discountValue);
         return round(valueBeforeDiscount - discountValue);
     }
 

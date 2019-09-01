@@ -55,7 +55,7 @@ public class PricingApplication {
     }
 
     private void writeResult(final Result result) {
-        logger.debug("Result received:{}", result);
+        logger.debug("Result calculated:{}", result);
         final String resultString = resultSerialiser.serialiseResult(result);
         System.out.println(resultString);
     }
