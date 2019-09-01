@@ -11,11 +11,14 @@ public class PricingService {
     private static final int DECIMAL_PLACES = 2;
 
     public double calculateValue(Map<ProductEnum, Integer> shoppingCart) {
-        if (shoppingCart == null || shoppingCart.size() == 0) {
-            return 0;
-        }
-
+        validate(shoppingCart);
         return round(shoppingCart.entrySet().stream().mapToDouble(entry -> entry.getValue() * entry.getKey().getPrice()).sum());
+    }
+
+    private void validate(Map<ProductEnum, Integer> shoppingCart) {
+        if (shoppingCart == null) {
+            throw new IllegalArgumentException("Missing shopping cart!");
+        }
     }
 
     private double round(double totalValue) {

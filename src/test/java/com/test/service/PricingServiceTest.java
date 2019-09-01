@@ -5,7 +5,7 @@ import static com.test.model.ProductEnum.BREAD;
 import static com.test.model.ProductEnum.MILK;
 import static com.test.model.ProductEnum.SOUP;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import com.test.model.ProductEnum;
 import org.junit.Test;
@@ -24,6 +24,12 @@ public class PricingServiceTest {
 
         // THEN
         assertThat(value, equalTo(0.0));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldReturnFailIfShoppingCartMissing() {
+        // WHEN
+        underTest.calculateValue(null);
     }
 
     @Test
