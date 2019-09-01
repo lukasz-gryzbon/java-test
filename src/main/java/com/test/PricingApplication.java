@@ -12,12 +12,15 @@ import com.test.service.ShoppingCartParser;
 import com.test.service.discount.AppleDiscount;
 import com.test.service.discount.BreadDiscount;
 import com.test.service.discount.Discount;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class PricingApplication {
 
+    private static final Logger logger = LoggerFactory.getLogger(PricingApplication.class);
     private static final String VALIDATION_FAILURE_MESSAGE = "Argument missing. Usage: $ ./java-test '{}'";
 
     private final ShoppingCartParser shoppingCartParser;
@@ -33,26 +36,26 @@ public class PricingApplication {
     }
 
     public static void main(final String[] args) {
-        new PricingApplication().handle(args);
+        new PricingApplication().process(args);
     }
 
-    private void handle(final String[] args) {
+    private void process(final String[] args) {
+        logger.info("Processing:{}", (Object) args);
         final List<String> argList = asList(args);
         validateArgument(argList);
-        writeResult(new Result(getValue(args, argList)));
+        writeResult(new Result(getValue(argList)));
     }
 
-    private double getValue(final String[] args, final List<String> argList) {
-        final double value;
+    private double getValue(final List<String> argList) {
         if (argList.size() < 2) {
-            value = pricingService.calculateValue(shoppingCartParser.parse(argList.get(0)));
+            return pricingService.calculateValue(shoppingCartParser.parse(argList.get(0)));
         } else {
-            value = pricingService.calculateValue(shoppingCartParser.parse(argList.get(0)), LocalDate.parse(args[1], ISO_DATE));
+            return pricingService.calculateValue(shoppingCartParser.parse(argList.get(0)), LocalDate.parse(argList.get(1), ISO_DATE));
         }
-        return value;
     }
 
     private void writeResult(final Result result) {
+        logger.debug("Result received:{}", result);
         final String resultString = resultSerialiser.serialiseResult(result);
         System.out.println(resultString);
     }
