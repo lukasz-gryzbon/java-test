@@ -14,13 +14,8 @@ public class PricingService {
         if (shoppingCart == null || shoppingCart.size() == 0) {
             return 0;
         }
-        double totalValue = 0.0;
 
-        for (ProductEnum product : shoppingCart.keySet()) {
-            totalValue += shoppingCart.get(product) * product.getPrice();
-        }
-
-        return round(totalValue);
+        return round(shoppingCart.entrySet().stream().mapToDouble(entry -> entry.getValue() * entry.getKey().getPrice()).sum());
     }
 
     private double round(double totalValue) {
