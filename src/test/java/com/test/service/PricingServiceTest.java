@@ -4,19 +4,28 @@ import static com.test.model.ProductEnum.APPLE;
 import static com.test.model.ProductEnum.BREAD;
 import static com.test.model.ProductEnum.MILK;
 import static com.test.model.ProductEnum.SOUP;
+import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.test.model.ProductEnum;
+import com.test.service.discount.Discount;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PricingServiceTest {
 
+    private final Discount discount = Mockito.mock(Discount.class);
     private final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
-    private final PricingService underTest = new PricingService();
+    private final PricingService underTest = new PricingService(asList(discount));
 
     @Test
     public void shouldReturn0ForEmptyShoppingCart() {
@@ -99,6 +108,7 @@ public class PricingServiceTest {
         // GIVEN
         shoppingCart.put(SOUP, 2);
         shoppingCart.put(BREAD, 2);
+        when(discount.calculateDiscountValue(shoppingCart)).thenReturn(0.4);
 
         // WHEN
         double value = underTest.calculateValue(shoppingCart);
@@ -151,6 +161,7 @@ public class PricingServiceTest {
         shoppingCart.put(SOUP, 2);
         shoppingCart.put(BREAD, 2);
         shoppingCart.put(MILK, 2);
+        when(discount.calculateDiscountValue(shoppingCart)).thenReturn(0.4);
 
         // WHEN
         double value = underTest.calculateValue(shoppingCart);
@@ -205,6 +216,7 @@ public class PricingServiceTest {
         shoppingCart.put(BREAD, 2);
         shoppingCart.put(MILK, 2);
         shoppingCart.put(APPLE, 2);
+        when(discount.calculateDiscountValue(shoppingCart)).thenReturn(0.4);
 
         // WHEN
         double value = underTest.calculateValue(shoppingCart);
@@ -214,41 +226,14 @@ public class PricingServiceTest {
     }
 
     @Test
-    public void shouldDiscountAllLoavesOfBread() {
-        // GIVEN
-        shoppingCart.put(SOUP, 4);
-        shoppingCart.put(BREAD, 2);
-
-        // WHEN
-        double value = underTest.calculateValue(shoppingCart);
-
-        // THEN
-        assertThat(value, equalTo(3.40));
-    }
-
-    @Test
-    public void shouldDiscountAllLoavesOfBreadButOne() {
-        // GIVEN
-        shoppingCart.put(SOUP, 4);
-        shoppingCart.put(BREAD, 3);
-
-        // WHEN
-        double value = underTest.calculateValue(shoppingCart);
-
-        // THEN
-        assertThat(value, equalTo(4.20));
-    }
-
-    @Test
-    public void shouldNotDiscountBread() {
+    public void shouldExecuteDiscountCalculation() {
         // GIVEN
         shoppingCart.put(SOUP, 1);
-        shoppingCart.put(BREAD, 2);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        underTest.calculateValue(shoppingCart);
 
         // THEN
-        assertThat(value, equalTo(2.25));
+        verify(discount).calculateDiscountValue(shoppingCart);
     }
 }

@@ -1,37 +1,28 @@
 package com.test.service;
 
-import static com.test.model.ProductEnum.BREAD;
-import static com.test.model.ProductEnum.SOUP;
-
 import com.test.model.ProductEnum;
+import com.test.service.discount.Discount;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Map;
 
 public class PricingService {
 
     private static final int DECIMAL_PLACES = 2;
 
-    public double calculateValue(Map<ProductEnum, Integer> shoppingCart) {
-        validate(shoppingCart);
-        final int discountedLoavesOfBread = getDiscountedLoavesOfBread(shoppingCart);
-        return round(shoppingCart.entrySet().stream().mapToDouble(entry -> {
-            if (discountedLoavesOfBread > 0 && entry.getKey().equals(BREAD)) {
-                final int fullPriceLoaves = Math.max(entry.getValue().intValue() - discountedLoavesOfBread, 0);
-                final double breadPrice = entry.getKey().getPrice();
-                return fullPriceLoaves * breadPrice + discountedLoavesOfBread * breadPrice / 2.0;
-            } else {
-                return entry.getValue() * entry.getKey().getPrice();
-            }
-        }).sum());
+    private final List<Discount> discounts;
+
+    public PricingService(final List<Discount> discounts) {
+        this.discounts = discounts;
     }
 
-    private int getDiscountedLoavesOfBread(Map<ProductEnum, Integer> shoppingCart) {
-        if (shoppingCart.containsKey(SOUP) && shoppingCart.get(SOUP) > 1) {
-            return shoppingCart.get(SOUP) / 2;
-        }
-        return 0;
+    public double calculateValue(Map<ProductEnum, Integer> shoppingCart) {
+        validate(shoppingCart);
+        final double discountValue = discounts.stream().mapToDouble(discount -> discount.calculateDiscountValue(shoppingCart)).sum();
+        final double valueBeforeDiscount = shoppingCart.entrySet().stream().mapToDouble(entry -> entry.getValue() * entry.getKey().getPrice()).sum();
+        return round(valueBeforeDiscount - discountValue);
     }
 
     private void validate(Map<ProductEnum, Integer> shoppingCart) {
@@ -40,7 +31,7 @@ public class PricingService {
         }
     }
 
-    private double round(double totalValue) {
-        return BigDecimal.valueOf(totalValue).setScale(DECIMAL_PLACES, RoundingMode.HALF_UP).doubleValue();
+    private double round(double value) {
+        return BigDecimal.valueOf(value).setScale(DECIMAL_PLACES, RoundingMode.HALF_UP).doubleValue();
     }
 }

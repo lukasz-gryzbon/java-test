@@ -57,7 +57,7 @@ public class BreadDiscountTest {
     public void shouldGenerateDiscountForCartWithOneSoup() {
         // GIVEN
         shoppingCart.put(SOUP, 1);
-        shoppingCart.put(BREAD, 3);
+        shoppingCart.put(BREAD, 2);
 
         // WHEN
         final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart);

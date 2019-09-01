@@ -4,13 +4,14 @@ import static java.util.Arrays.asList;
 
 import com.test.service.PricingService;
 import com.test.service.ShoppingCartParser;
+import com.test.service.discount.BreadDiscount;
 
 import java.util.List;
 
 public class PricingApplication {
 
     private static ShoppingCartParser shoppingCartParser = new ShoppingCartParser();
-    private static PricingService pricingService = new PricingService();
+    private static PricingService pricingService = new PricingService(asList(new BreadDiscount()));
 
     private static final String VALIDATION_FAILURE_MESSAGE = "Argument missing. Usage: $ gradle run --args=\"{}\"";
 
