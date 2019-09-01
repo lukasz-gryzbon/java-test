@@ -237,4 +237,16 @@ public class PricingServiceTest {
         // THEN
         verify(discount).calculateDiscountValue(shoppingCart, now());
     }
+
+    @Test
+    public void shouldExecuteDiscountCalculationForDate() {
+        // GIVEN
+        shoppingCart.put(SOUP, 1);
+
+        // WHEN
+        underTest.calculateValue(shoppingCart, now().plusDays(7));
+
+        // THEN
+        verify(discount).calculateDiscountValue(shoppingCart, now().plusDays(7));
+    }
 }

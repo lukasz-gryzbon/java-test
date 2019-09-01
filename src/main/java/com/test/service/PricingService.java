@@ -7,6 +7,7 @@ import com.test.service.discount.Discount;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +21,13 @@ public class PricingService {
         this.discounts = discounts;
     }
 
-    public double calculateValue(Map<ProductEnum, Integer> shoppingCart) {
+    public double calculateValue(final Map<ProductEnum, Integer> shoppingCart) {
+        return calculateValue(shoppingCart, now());
+    }
+
+    public double calculateValue(final Map<ProductEnum, Integer> shoppingCart, final LocalDate localDate) {
         validate(shoppingCart);
-        final double discountValue = discounts.stream().mapToDouble(discount -> discount.calculateDiscountValue(shoppingCart, now())).sum();
+        final double discountValue = discounts.stream().mapToDouble(discount -> discount.calculateDiscountValue(shoppingCart, localDate)).sum();
         final double valueBeforeDiscount = shoppingCart.entrySet().stream().mapToDouble(entry -> entry.getValue() * entry.getKey().getPrice()).sum();
         return round(valueBeforeDiscount - discountValue);
     }
