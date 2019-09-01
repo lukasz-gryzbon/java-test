@@ -13,7 +13,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.io.IOException;
 import java.util.Map;
 
 public class ShoppingCartParserTest {
@@ -66,7 +65,7 @@ public class ShoppingCartParserTest {
     }
 
     @Test
-    public void shouldFailWhenJsonUnparsableWithMeaningfulMessage() throws IOException {
+    public void shouldFailWhenJsonUnparsableWithMeaningfulMessage() {
         expectedException.expectMessage("Wrong JSON");
         expectedException.expect(IllegalArgumentException.class);
 

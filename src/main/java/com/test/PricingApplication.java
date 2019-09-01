@@ -5,7 +5,6 @@ import static java.util.Arrays.asList;
 import com.test.service.PricingService;
 import com.test.service.ShoppingCartParser;
 
-import java.io.IOException;
 import java.util.List;
 
 public class PricingApplication {
