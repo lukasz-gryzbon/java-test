@@ -12,7 +12,7 @@ abstract class TimeLimitedDiscount {
         this.endDate = endDate;
     }
 
-    boolean isDiscountApplicable(LocalDate localDate) {
+    boolean isDiscountApplicable(final LocalDate localDate) {
         return (localDate.isEqual(startDate) || localDate.isAfter(startDate)) && (localDate.isBefore(endDate) || localDate.isEqual(endDate));
     }
 }

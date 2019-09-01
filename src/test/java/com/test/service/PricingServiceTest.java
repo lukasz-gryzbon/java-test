@@ -31,7 +31,7 @@ public class PricingServiceTest {
     @Test
     public void shouldReturn0ForEmptyShoppingCart() {
         // WHEN
-        double value = underTest.calculateValue(new HashMap<>());
+        final double value = underTest.calculateValue(new HashMap<>());
 
         // THEN
         assertThat(value, equalTo(0.0));
@@ -49,7 +49,7 @@ public class PricingServiceTest {
         shoppingCart.put(SOUP, 1);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(0.65));
@@ -61,7 +61,7 @@ public class PricingServiceTest {
         shoppingCart.put(SOUP, 2);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(1.30));
@@ -73,7 +73,7 @@ public class PricingServiceTest {
         shoppingCart.put(BREAD, 1);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(0.80));
@@ -85,7 +85,7 @@ public class PricingServiceTest {
         shoppingCart.put(BREAD, 2);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(1.60));
@@ -98,7 +98,7 @@ public class PricingServiceTest {
         shoppingCart.put(BREAD, 1);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(1.45));
@@ -112,7 +112,7 @@ public class PricingServiceTest {
         when(discount.calculateDiscountValue(shoppingCart, now())).thenReturn(0.4);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(2.50));
@@ -124,7 +124,7 @@ public class PricingServiceTest {
         shoppingCart.put(MILK, 1);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(1.30));
@@ -136,7 +136,7 @@ public class PricingServiceTest {
         shoppingCart.put(MILK, 2);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(2.60));
@@ -150,7 +150,7 @@ public class PricingServiceTest {
         shoppingCart.put(MILK, 1);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(2.75));
@@ -165,7 +165,7 @@ public class PricingServiceTest {
         when(discount.calculateDiscountValue(shoppingCart, now())).thenReturn(0.4);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(5.10));
@@ -177,7 +177,7 @@ public class PricingServiceTest {
         shoppingCart.put(APPLE, 1);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(0.10));
@@ -189,7 +189,7 @@ public class PricingServiceTest {
         shoppingCart.put(APPLE, 2);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(0.20));
@@ -204,7 +204,7 @@ public class PricingServiceTest {
         shoppingCart.put(APPLE, 1);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(2.85));
@@ -220,7 +220,7 @@ public class PricingServiceTest {
         when(discount.calculateDiscountValue(shoppingCart, now())).thenReturn(0.4);
 
         // WHEN
-        double value = underTest.calculateValue(shoppingCart);
+        final double value = underTest.calculateValue(shoppingCart);
 
         // THEN
         assertThat(value, equalTo(5.30));

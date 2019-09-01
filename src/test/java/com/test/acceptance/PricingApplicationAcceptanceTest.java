@@ -11,12 +11,10 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class PricingApplicationAcceptanceTest {
 
-    private ByteArrayOutputStream console = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream console = new ByteArrayOutputStream();
 
     @Before
     public void setup() {
@@ -32,7 +30,6 @@ public class PricingApplicationAcceptanceTest {
         PricingApplication.main(asArray(shoppingCartItemsJson));
 
         // THEN
-
         assertThat(console.toString().trim(), equalTo("{\"totalCost\":3.15}"));
     }
 
@@ -45,7 +42,6 @@ public class PricingApplicationAcceptanceTest {
         PricingApplication.main(asArray(shoppingCartItemsJson));
 
         // THEN
-
         assertThat(console.toString().trim(), equalTo("{\"totalCost\":1.9}"));
     }
 
@@ -59,7 +55,6 @@ public class PricingApplicationAcceptanceTest {
         PricingApplication.main(asArray(shoppingCartItemsJson, calculationDate));
 
         // THEN
-
         assertThat(console.toString().trim(), equalTo("{\"totalCost\":1.84}"));
     }
 
@@ -73,11 +68,10 @@ public class PricingApplicationAcceptanceTest {
         PricingApplication.main(asArray(shoppingCartItemsJson, calculationDate));
 
         // THEN
-
         assertThat(console.toString().trim(), equalTo("{\"totalCost\":1.97}"));
     }
 
-    private String[] asArray(String...values) {
+    private String[] asArray(final String... values) {
         return values;
     }
 }

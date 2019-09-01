@@ -30,7 +30,7 @@ public class BreadDiscount extends TimeLimitedDiscount implements Discount {
         return 0.0;
     }
 
-    private int getDiscountedLoavesOfBread(Map<ProductEnum, Integer> shoppingCart) {
+    private int getDiscountedLoavesOfBread(final Map<ProductEnum, Integer> shoppingCart) {
         if (shoppingCart.containsKey(SOUP) && shoppingCart.get(SOUP) > 1) {
             return shoppingCart.get(SOUP) / 2;
         }

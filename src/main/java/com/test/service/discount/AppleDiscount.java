@@ -20,13 +20,13 @@ public class AppleDiscount extends TimeLimitedDiscount implements Discount {
 
     @Override
     public double calculateDiscountValue(final Map<ProductEnum, Integer> shoppingCart, final LocalDate localDate) {
-        if (shoppingCart.containsKey(APPLE) && isDiscountApplicable(localDate) ) {
+        if (shoppingCart.containsKey(APPLE) && isDiscountApplicable(localDate)) {
             return round(shoppingCart.get(APPLE) * APPLE.getPrice() * DISCOUNT);
         }
         return 0.0;
     }
 
-    private double round(double value) {
+    private double round(final double value) {
         return BigDecimal.valueOf(value).setScale(DECIMAL_PLACES, RoundingMode.HALF_UP).doubleValue();
     }
 }

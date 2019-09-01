@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class ShoppingCartParserTest {
 
-    private ShoppingCartParser shoppingCartParser = new ShoppingCartParser();
+    private final ShoppingCartParser shoppingCartParser = new ShoppingCartParser();
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -28,7 +28,7 @@ public class ShoppingCartParserTest {
         final String shoppingCartJson = "{\"milk\":1}";
 
         // WHEN
-        Map<ProductEnum, Integer> shoppingCart = shoppingCartParser.parse(shoppingCartJson);
+        final Map<ProductEnum, Integer> shoppingCart = shoppingCartParser.parse(shoppingCartJson);
 
         // THEN
         assertThat(shoppingCart.size(), is(1));
@@ -42,7 +42,7 @@ public class ShoppingCartParserTest {
         final String shoppingCartJson = "{\"soup\":1, \"bread\":2, \"milk\":3, \"apple\":4}";
 
         // WHEN
-        Map<ProductEnum, Integer> shoppingCart = shoppingCartParser.parse(shoppingCartJson);
+        final Map<ProductEnum, Integer> shoppingCart = shoppingCartParser.parse(shoppingCartJson);
 
         // THEN
         assertThat(shoppingCart.size(), is(4));
@@ -54,7 +54,7 @@ public class ShoppingCartParserTest {
 
     @Test
     public void shouldFailWhenUnknownItemWithMeaningfulMessage() {
-        expectedException.expectMessage("Unknown item in te shopping cart");
+        expectedException.expectMessage("Unknown item in the shopping cart");
         expectedException.expect(IllegalArgumentException.class);
 
         // GIVEN

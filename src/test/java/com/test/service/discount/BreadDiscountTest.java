@@ -17,7 +17,7 @@ import java.util.Map;
 public class BreadDiscountTest {
 
     private final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
-    private Discount underTest = new BreadDiscount(now().minusDays(1), now().plusDays(1));
+    private final Discount underTest = new BreadDiscount(now().minusDays(1), now().plusDays(1));
 
     @Test
     public void shouldNotGenerateDiscountForEmptyCart() {
