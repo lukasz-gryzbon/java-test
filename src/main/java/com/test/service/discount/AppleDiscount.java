@@ -23,10 +23,14 @@ public class AppleDiscount implements Discount {
 
     @Override
     public double calculateDiscountValue(final Map<ProductEnum, Integer> shoppingCart, final LocalDate localDate) {
-        if (shoppingCart.containsKey(APPLE)) {
+        if (shoppingCart.containsKey(APPLE) && isDiscountApplicable(localDate) ) {
             return round(shoppingCart.get(APPLE) * APPLE.getPrice() * 0.1);
         }
         return 0.0;
+    }
+
+    private boolean isDiscountApplicable(LocalDate localDate) {
+        return (localDate.isEqual(startDate) || localDate.isAfter(startDate)) && (localDate.isBefore(endDate) || localDate.isEqual(endDate));
     }
 
     private double round(double value) {
