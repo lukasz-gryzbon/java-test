@@ -24,7 +24,7 @@ public class ShoppingCartParser {
         try {
             return objectMapper.readValue(shoppingCartJson.toUpperCase(), typeRef);
         } catch (final JsonMappingException e) {
-            throw new IllegalArgumentException("Unknown item in te shopping cart");
+            throw new IllegalArgumentException("Unknown item in the shopping cart");
         } catch (final JsonParseException e) {
             throw new IllegalArgumentException("Wrong JSON");
         } catch (final IOException e) {
