@@ -46,7 +46,7 @@ public class PricingApplicationAcceptanceTest {
 
         // THEN
 
-        assertThat(console.toString().trim(), equalTo("{\"totalCost\":1.90}"));
+        assertThat(console.toString().trim(), equalTo("{\"totalCost\":1.9}"));
     }
 
     @Test

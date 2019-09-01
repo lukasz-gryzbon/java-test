@@ -20,7 +20,7 @@ public class PricingApplicationTest {
     public void shouldFailIfNoArgumentsPassedWitMeaningfulMessage() {
 
         expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Argument missing. Usage: $ gradle run --args=\"{}\"");
+        expectedException.expectMessage("Argument missing. Usage: $ ./java-test '{}'");
 
         // WHEN
         PricingApplication.main(new String[]{});
