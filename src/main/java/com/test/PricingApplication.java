@@ -18,7 +18,7 @@ public class PricingApplication {
         final List<String> argList = asList(args);
         validateArgument(argList);
         final double value = pricingService.calculateValue(shoppingCartParser.parse(argList.get(0)));
-        System.out.println("{\"totalCost\":" + value + "}");
+        System.out.println(String.format("{\"totalCost\":%.2f}", value));
     }
 
     private static void validateArgument(List<String> argList) {
