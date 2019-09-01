@@ -15,7 +15,8 @@ import java.util.Map;
 
 public class PricingServiceTest {
 
-    private PricingService underTest = new PricingService();
+    private final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
+    private final PricingService underTest = new PricingService();
 
     @Test
     public void shouldReturn0ForEmptyShoppingCart() {
@@ -27,7 +28,7 @@ public class PricingServiceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldReturnFailIfShoppingCartMissing() {
+    public void shouldFailIfShoppingCartMissing() {
         // WHEN
         underTest.calculateValue(null);
     }
@@ -35,7 +36,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForOneTinOfSoup() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(SOUP, 1);
 
         // WHEN
@@ -48,7 +48,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForTwoTinsOfSoup() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(SOUP, 2);
 
         // WHEN
@@ -61,7 +60,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForOneBread() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(BREAD, 1);
 
         // WHEN
@@ -74,7 +72,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForTwoLoavesOfBread() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(BREAD, 2);
 
         // WHEN
@@ -87,7 +84,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForOneTinOfSoupAndOneBread() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(SOUP, 1);
         shoppingCart.put(BREAD, 1);
 
@@ -101,7 +97,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForMultipleTinsOfSoupAndLoavesOfBread() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(SOUP, 2);
         shoppingCart.put(BREAD, 2);
 
@@ -115,7 +110,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForOneMilk() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(MILK, 1);
 
         // WHEN
@@ -128,7 +122,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForTwoBottlesOfMilk() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(MILK, 2);
 
         // WHEN
@@ -141,7 +134,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForOneTinOfSoupOneBreadAndOneMilk() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(SOUP, 1);
         shoppingCart.put(BREAD, 1);
         shoppingCart.put(MILK, 1);
@@ -156,7 +148,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForMultipleTinsOfSoupLoavesOfBreadAndBottlesOfMilk() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(SOUP, 2);
         shoppingCart.put(BREAD, 2);
         shoppingCart.put(MILK, 2);
@@ -171,7 +162,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForOneApple() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(APPLE, 1);
 
         // WHEN
@@ -184,7 +174,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForTwoApples() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(APPLE, 2);
 
         // WHEN
@@ -197,7 +186,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForOneTinOfSoupOneBreadOneMilkAndAnApple() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(SOUP, 1);
         shoppingCart.put(BREAD, 1);
         shoppingCart.put(MILK, 1);
@@ -213,7 +201,6 @@ public class PricingServiceTest {
     @Test
     public void shouldReturnCorrectValueForMultipleTinsOfSoupLoavesOfBreadBottlesOfMilkAndTwoApples() {
         // GIVEN
-        final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
         shoppingCart.put(SOUP, 2);
         shoppingCart.put(BREAD, 2);
         shoppingCart.put(MILK, 2);
