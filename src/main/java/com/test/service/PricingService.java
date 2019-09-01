@@ -10,15 +10,14 @@ public class PricingService {
 
     private static final int DECIMAL_PLACES = 2;
 
-    public double calculateValue(Map<String, Integer> shoppingCart) {
+    public double calculateValue(Map<ProductEnum, Integer> shoppingCart) {
         if (shoppingCart == null || shoppingCart.size() == 0) {
             return 0;
         }
         double totalValue = 0.0;
 
-        for (String itemName : shoppingCart.keySet()) {
-            final ProductEnum product = ProductEnum.valueOf(itemName.toUpperCase());
-            totalValue += shoppingCart.get(itemName) * product.getPrice();
+        for (ProductEnum product : shoppingCart.keySet()) {
+            totalValue += shoppingCart.get(product) * product.getPrice();
         }
 
         return round(totalValue);
