@@ -1,5 +1,7 @@
 package com.test.service;
 
+import static java.time.LocalDate.now;
+
 import com.test.model.ProductEnum;
 import com.test.service.discount.Discount;
 
@@ -20,7 +22,7 @@ public class PricingService {
 
     public double calculateValue(Map<ProductEnum, Integer> shoppingCart) {
         validate(shoppingCart);
-        final double discountValue = discounts.stream().mapToDouble(discount -> discount.calculateDiscountValue(shoppingCart)).sum();
+        final double discountValue = discounts.stream().mapToDouble(discount -> discount.calculateDiscountValue(shoppingCart, now())).sum();
         final double valueBeforeDiscount = shoppingCart.entrySet().stream().mapToDouble(entry -> entry.getValue() * entry.getKey().getPrice()).sum();
         return round(valueBeforeDiscount - discountValue);
     }

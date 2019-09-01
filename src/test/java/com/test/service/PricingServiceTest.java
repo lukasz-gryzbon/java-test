@@ -4,6 +4,7 @@ import static com.test.model.ProductEnum.APPLE;
 import static com.test.model.ProductEnum.BREAD;
 import static com.test.model.ProductEnum.MILK;
 import static com.test.model.ProductEnum.SOUP;
+import static java.time.LocalDate.now;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -108,7 +109,7 @@ public class PricingServiceTest {
         // GIVEN
         shoppingCart.put(SOUP, 2);
         shoppingCart.put(BREAD, 2);
-        when(discount.calculateDiscountValue(shoppingCart)).thenReturn(0.4);
+        when(discount.calculateDiscountValue(shoppingCart, now())).thenReturn(0.4);
 
         // WHEN
         double value = underTest.calculateValue(shoppingCart);
@@ -161,7 +162,7 @@ public class PricingServiceTest {
         shoppingCart.put(SOUP, 2);
         shoppingCart.put(BREAD, 2);
         shoppingCart.put(MILK, 2);
-        when(discount.calculateDiscountValue(shoppingCart)).thenReturn(0.4);
+        when(discount.calculateDiscountValue(shoppingCart, now())).thenReturn(0.4);
 
         // WHEN
         double value = underTest.calculateValue(shoppingCart);
@@ -216,7 +217,7 @@ public class PricingServiceTest {
         shoppingCart.put(BREAD, 2);
         shoppingCart.put(MILK, 2);
         shoppingCart.put(APPLE, 2);
-        when(discount.calculateDiscountValue(shoppingCart)).thenReturn(0.4);
+        when(discount.calculateDiscountValue(shoppingCart, now())).thenReturn(0.4);
 
         // WHEN
         double value = underTest.calculateValue(shoppingCart);
@@ -234,6 +235,6 @@ public class PricingServiceTest {
         underTest.calculateValue(shoppingCart);
 
         // THEN
-        verify(discount).calculateDiscountValue(shoppingCart);
+        verify(discount).calculateDiscountValue(shoppingCart, now());
     }
 }

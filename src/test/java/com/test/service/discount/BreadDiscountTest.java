@@ -4,6 +4,7 @@ import static com.test.model.ProductEnum.APPLE;
 import static com.test.model.ProductEnum.BREAD;
 import static com.test.model.ProductEnum.MILK;
 import static com.test.model.ProductEnum.SOUP;
+import static java.time.LocalDate.now;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -16,12 +17,12 @@ import java.util.Map;
 public class BreadDiscountTest {
 
     private final Map<ProductEnum, Integer> shoppingCart = new HashMap<>();
-    private BreadDiscount breadDiscount = new BreadDiscount();
+    private BreadDiscount breadDiscount = new BreadDiscount(now().minusDays(1), now().plusDays(1));
 
     @Test
     public void shouldNotGenerateDiscountForEmptyCart() {
         // WHEN
-        final double discountValue = breadDiscount.calculateDiscountValue(new HashMap<>());
+        final double discountValue = breadDiscount.calculateDiscountValue(new HashMap<>(), now());
 
         // THEN
         assertThat(discountValue, equalTo(0.0));
@@ -35,7 +36,7 @@ public class BreadDiscountTest {
         shoppingCart.put(APPLE, 5);
 
         // WHEN
-        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart);
+        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart, now());
 
         // THEN
         assertThat(discountValue, equalTo(0.0));
@@ -47,7 +48,7 @@ public class BreadDiscountTest {
         shoppingCart.put(BREAD, 5);
 
         // WHEN
-        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart);
+        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart, now());
 
         // THEN
         assertThat(discountValue, equalTo(0.0));
@@ -60,7 +61,7 @@ public class BreadDiscountTest {
         shoppingCart.put(BREAD, 2);
 
         // WHEN
-        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart);
+        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart, now());
 
         // THEN
         assertThat(discountValue, equalTo(0.0));
@@ -73,7 +74,7 @@ public class BreadDiscountTest {
         shoppingCart.put(BREAD, 2);
 
         // WHEN
-        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart);
+        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart, now());
 
         // THEN
         assertThat(discountValue, equalTo(0.8));
@@ -86,7 +87,7 @@ public class BreadDiscountTest {
         shoppingCart.put(BREAD, 3);
 
         // WHEN
-        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart);
+        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart, now());
 
         // THEN
         assertThat(discountValue, equalTo(0.8));
@@ -99,10 +100,22 @@ public class BreadDiscountTest {
         shoppingCart.put(BREAD, 3);
 
         // WHEN
-        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart);
+        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart, now());
 
         // THEN
         assertThat(discountValue, equalTo(0.8));
     }
 
+    @Test
+    public void shouldNotGenerateDiscountForAllLoavesOfBreadOutsideApplicablePeriod() {
+        // GIVEN
+        shoppingCart.put(SOUP, 4);
+        shoppingCart.put(BREAD, 2);
+
+        // WHEN
+        final double discountValue = breadDiscount.calculateDiscountValue(shoppingCart, now().plusDays(8));
+
+        // THEN
+        assertThat(discountValue, equalTo(0.0));
+    }
 }

@@ -1,5 +1,6 @@
 package com.test;
 
+import static java.time.LocalDate.now;
 import static java.util.Arrays.asList;
 
 import com.test.service.PricingService;
@@ -11,7 +12,7 @@ import java.util.List;
 public class PricingApplication {
 
     private static ShoppingCartParser shoppingCartParser = new ShoppingCartParser();
-    private static PricingService pricingService = new PricingService(asList(new BreadDiscount()));
+    private static PricingService pricingService = new PricingService(asList(new BreadDiscount(now().minusDays(1), now().plusDays(7))));
 
     private static final String VALIDATION_FAILURE_MESSAGE = "Argument missing. Usage: $ gradle run --args=\"{}\"";
 
