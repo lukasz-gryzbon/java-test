@@ -54,4 +54,16 @@ public class AppleDiscountTest {
         assertThat(discountValue, equalTo(0.01));
     }
 
+    @Test
+    public void shouldGenerateDiscountWithMultipleApple() {
+        // GIVEN
+        shoppingCart.put(APPLE, 10);
+
+        // WHEN
+        final double discountValue = underTest.calculateDiscountValue(shoppingCart, now());
+
+        // THEN
+        assertThat(discountValue, equalTo(0.1));
+    }
+
 }
