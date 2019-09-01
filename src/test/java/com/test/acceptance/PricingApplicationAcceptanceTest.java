@@ -9,6 +9,9 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class PricingApplicationAcceptanceTest {
 
@@ -45,7 +48,35 @@ public class PricingApplicationAcceptanceTest {
         assertThat(console.toString().trim(), equalTo("{\"totalCost\":1.90}"));
     }
 
-    private String[] asArray(String shoppingCartItemsJson) {
-        return new String[]{shoppingCartItemsJson};
+    @Test
+    public void shouldCalculate6ApplesAndABottleOfMilkBoughtIn5DaysTime() {
+        // GIVEN
+        final String shoppingCartItemsJson = "{\"apple\":6, \"milk\":1}";
+        final String calculationDate = LocalDate.now().plusDays(5).format(DateTimeFormatter.ISO_DATE);
+
+        // WHEN
+        PricingApplication.main(asArray(shoppingCartItemsJson, calculationDate));
+
+        // THEN
+
+        assertThat(console.toString().trim(), equalTo("{\"totalCost\":1.84}"));
+    }
+
+    @Test
+    public void shouldCalculate3Apples2TinsOfSoupAndALoafOfBreadBoughtIn5DaysTime() {
+        // GIVEN
+        final String shoppingCartItemsJson = "{\"apple\":3, \"soup\":2, \"bread\":1}";
+        final String calculationDate = LocalDate.now().plusDays(5).format(DateTimeFormatter.ISO_DATE);
+
+        // WHEN
+        PricingApplication.main(asArray(shoppingCartItemsJson, calculationDate));
+
+        // THEN
+
+        assertThat(console.toString().trim(), equalTo("{\"totalCost\":1.97}"));
+    }
+
+    private String[] asArray(String...values) {
+        return values;
     }
 }
