@@ -8,6 +8,6 @@ public class PricingService {
         if (shoppingCart == null || shoppingCart.size() == 0) {
             return 0;
         }
-        return 0.65;
+        return shoppingCart.values().iterator().next() * 0.65;
     }
 }
