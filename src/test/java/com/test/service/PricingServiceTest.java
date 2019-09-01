@@ -100,4 +100,17 @@ public class PricingServiceTest {
         // THEN
         assertThat(value, equalTo(2.90));
     }
+
+    @Test
+    public void shouldReturnCorrectValueForOneMilk() {
+        // GIVEN
+        final Map<String, Integer> shoppingCart = new HashMap<>();
+        shoppingCart.put("milk", 1);
+
+        // WHEN
+        double value = underTest.calculateValue(shoppingCart);
+
+        // THEN
+        assertThat(value, equalTo(1.30));
+    }
 }

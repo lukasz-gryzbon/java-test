@@ -1,5 +1,7 @@
 package com.test.service;
 
+import com.test.model.ProductEnum;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Map;
@@ -15,11 +17,8 @@ public class PricingService {
         double totalValue = 0.0;
 
         for (String itemName : shoppingCart.keySet()) {
-            if (itemName.equalsIgnoreCase("soup")) {
-                totalValue += shoppingCart.get(itemName) * 0.65;
-            } else {
-                totalValue += shoppingCart.get(itemName) * 0.80;
-            }
+            final ProductEnum product = ProductEnum.valueOf(itemName.toUpperCase());
+            totalValue += shoppingCart.get(itemName) * product.getPrice();
         }
 
         return round(totalValue);
