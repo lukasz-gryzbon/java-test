@@ -12,14 +12,14 @@ public class PricingApplicationTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Test(expected = IllegalArgumentException.class)
-    public void shouldFailIfNoArgumentsPassed() throws IOException {
+    public void shouldFailIfNoArgumentsPassed() {
 
         // WHEN
         PricingApplication.main(new String[]{});
     }
 
     @Test
-    public void shouldFailIfNoArgumentsPassedWitMeaningfulMessage() throws IOException {
+    public void shouldFailIfNoArgumentsPassedWitMeaningfulMessage() {
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("Argument missing. Usage: $ gradle run --args=\"{}\"");

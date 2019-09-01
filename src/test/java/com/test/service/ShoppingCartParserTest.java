@@ -24,7 +24,7 @@ public class ShoppingCartParserTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Test
-    public void shouldParseJsonWithSingleItem() throws IOException {
+    public void shouldParseJsonWithSingleItem() {
         // GIVEN
         final String shoppingCartJson = "{\"milk\":1}";
 
@@ -38,7 +38,7 @@ public class ShoppingCartParserTest {
     }
 
     @Test
-    public void shouldParseJsonWithMultipleItems() throws IOException {
+    public void shouldParseJsonWithMultipleItems() {
         // GIVEN
         final String shoppingCartJson = "{\"soup\":1, \"bread\":2, \"milk\":3, \"apple\":4}";
 
@@ -54,12 +54,24 @@ public class ShoppingCartParserTest {
     }
 
     @Test
-    public void shouldFailWhenUnknownItemWithMeaningfulMessage() throws IOException {
+    public void shouldFailWhenUnknownItemWithMeaningfulMessage() {
         expectedException.expectMessage("Unknown item in te shopping cart");
         expectedException.expect(IllegalArgumentException.class);
 
         // GIVEN
         final String shoppingCartJson = "{\"pear\":1}";
+
+        // WHEN
+        shoppingCartParser.parse(shoppingCartJson);
+    }
+
+    @Test
+    public void shouldFailWhenJsonUnparsableWithMeaningfulMessage() throws IOException {
+        expectedException.expectMessage("Wrong JSON");
+        expectedException.expect(IllegalArgumentException.class);
+
+        // GIVEN
+        final String shoppingCartJson = "pear:1";
 
         // WHEN
         shoppingCartParser.parse(shoppingCartJson);

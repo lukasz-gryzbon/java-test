@@ -15,7 +15,7 @@ public class PricingApplication {
 
     private static final String VALIDATION_FAILURE_MESSAGE = "Argument missing. Usage: $ gradle run --args=\"{}\"";
 
-    public static void main(final String[] args) throws IOException {
+    public static void main(final String[] args) {
         final List<String> argList = asList(args);
         validateArgument(argList);
         final double value = pricingService.calculateValue(shoppingCartParser.parse(argList.get(0)));

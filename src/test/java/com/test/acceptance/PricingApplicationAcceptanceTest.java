@@ -21,7 +21,7 @@ public class PricingApplicationAcceptanceTest {
     }
 
     @Test
-    public void shouldCalculate3TinsOfSoupAnd2LoavesOfBreadBoughtToday() throws IOException {
+    public void shouldCalculate3TinsOfSoupAnd2LoavesOfBreadBoughtToday() {
         // GIVEN
         final String shoppingCartItemsJson = "{\"soup\":3, \"bread\":2}";
 
@@ -34,7 +34,7 @@ public class PricingApplicationAcceptanceTest {
     }
 
     @Test
-    public void shouldCalculate6ApplesAndABottleOfMilkBoughtToday() throws IOException {
+    public void shouldCalculate6ApplesAndABottleOfMilkBoughtToday() {
         // GIVEN
         final String shoppingCartItemsJson = "{\"apple\":6, \"milk\":1}";
 
