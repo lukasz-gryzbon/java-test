@@ -66,4 +66,16 @@ public class AppleDiscountTest {
         assertThat(discountValue, equalTo(0.1));
     }
 
+    @Test
+    public void shouldNotGenerateDiscountOutsideApplicablePeriod() {
+        // GIVEN
+        shoppingCart.put(APPLE, 10);
+
+        // WHEN
+        final double discountValue = underTest.calculateDiscountValue(shoppingCart, now().plusDays(2));
+
+        // THEN
+        assertThat(discountValue, equalTo(0.0));
+    }
+
 }
