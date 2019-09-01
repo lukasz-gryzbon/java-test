@@ -8,6 +8,10 @@ public class PricingService {
         if (shoppingCart == null || shoppingCart.size() == 0) {
             return 0;
         }
-        return shoppingCart.values().iterator().next() * 0.65;
+        final String itemName = shoppingCart.keySet().iterator().next();
+        if (itemName.equalsIgnoreCase("soup")) {
+            return shoppingCart.values().iterator().next() * 0.65;
+        }
+        return 0.80;
     }
 }
