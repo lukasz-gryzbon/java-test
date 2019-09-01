@@ -59,4 +59,17 @@ public class PricingServiceTest {
         // THEN
         assertThat(value, equalTo(0.80));
     }
+
+    @Test
+    public void shouldReturnCorrectValueForTwoLoavesOfBread() {
+        // GIVEN
+        final Map<String, Integer> shoppingCart = new HashMap<>();
+        shoppingCart.put("bread", 2);
+
+        // WHEN
+        double value = underTest.calculateValue(shoppingCart);
+
+        // THEN
+        assertThat(value, equalTo(1.60));
+    }
 }

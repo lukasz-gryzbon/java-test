@@ -12,6 +12,6 @@ public class PricingService {
         if (itemName.equalsIgnoreCase("soup")) {
             return shoppingCart.values().iterator().next() * 0.65;
         }
-        return 0.80;
+        return shoppingCart.values().iterator().next() * 0.80;
     }
 }
