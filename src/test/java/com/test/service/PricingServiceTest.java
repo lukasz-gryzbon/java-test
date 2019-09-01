@@ -104,7 +104,7 @@ public class PricingServiceTest {
         double value = underTest.calculateValue(shoppingCart);
 
         // THEN
-        assertThat(value, equalTo(2.90));
+        assertThat(value, equalTo(2.50));
     }
 
     @Test
@@ -156,7 +156,7 @@ public class PricingServiceTest {
         double value = underTest.calculateValue(shoppingCart);
 
         // THEN
-        assertThat(value, equalTo(5.50));
+        assertThat(value, equalTo(5.10));
     }
 
     @Test
@@ -210,6 +210,6 @@ public class PricingServiceTest {
         double value = underTest.calculateValue(shoppingCart);
 
         // THEN
-        assertThat(value, equalTo(5.70));
+        assertThat(value, equalTo(5.30));
     }
 }
