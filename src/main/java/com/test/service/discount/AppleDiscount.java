@@ -1,11 +1,17 @@
 package com.test.service.discount;
 
+import static com.test.model.ProductEnum.APPLE;
+
 import com.test.model.ProductEnum;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Map;
 
 public class AppleDiscount implements Discount {
+
+    private static final int DECIMAL_PLACES = 2;
 
     private final LocalDate startDate;
     private final LocalDate endDate;
@@ -17,6 +23,13 @@ public class AppleDiscount implements Discount {
 
     @Override
     public double calculateDiscountValue(final Map<ProductEnum, Integer> shoppingCart, final LocalDate localDate) {
+        if (shoppingCart.containsKey(APPLE)) {
+            return round(shoppingCart.get(APPLE) * APPLE.getPrice() * 0.1);
+        }
         return 0.0;
+    }
+
+    private double round(double value) {
+        return BigDecimal.valueOf(value).setScale(DECIMAL_PLACES, RoundingMode.HALF_UP).doubleValue();
     }
 }
