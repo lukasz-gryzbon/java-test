@@ -212,4 +212,43 @@ public class PricingServiceTest {
         // THEN
         assertThat(value, equalTo(5.30));
     }
+
+    @Test
+    public void shouldDiscountAllLoavesOfBread() {
+        // GIVEN
+        shoppingCart.put(SOUP, 4);
+        shoppingCart.put(BREAD, 2);
+
+        // WHEN
+        double value = underTest.calculateValue(shoppingCart);
+
+        // THEN
+        assertThat(value, equalTo(3.40));
+    }
+
+    @Test
+    public void shouldDiscountAllLoavesOfBreadButOne() {
+        // GIVEN
+        shoppingCart.put(SOUP, 4);
+        shoppingCart.put(BREAD, 3);
+
+        // WHEN
+        double value = underTest.calculateValue(shoppingCart);
+
+        // THEN
+        assertThat(value, equalTo(4.20));
+    }
+
+    @Test
+    public void shouldNotDiscountBread() {
+        // GIVEN
+        shoppingCart.put(SOUP, 1);
+        shoppingCart.put(BREAD, 2);
+
+        // WHEN
+        double value = underTest.calculateValue(shoppingCart);
+
+        // THEN
+        assertThat(value, equalTo(2.25));
+    }
 }
