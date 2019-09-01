@@ -19,20 +19,30 @@ import java.util.List;
 
 public class PricingApplication {
 
-    private static ShoppingCartParser shoppingCartParser = new ShoppingCartParser();
-    private static Discount breadDiscount = new BreadDiscount(now().minusDays(1), now().plusDays(7));
-    private static Discount appleDiscount = new AppleDiscount(now().plusDays(3), now().plusMonths(1).with(lastDayOfMonth()));
-    private static PricingService pricingService = new PricingService(asList(breadDiscount, appleDiscount));
-
     private static final String VALIDATION_FAILURE_MESSAGE = "Argument missing. Usage: $ ./java-test '{}'";
 
+    private ShoppingCartParser shoppingCartParser;
+    private PricingService pricingService;
+
+    private PricingApplication() {
+        shoppingCartParser = new ShoppingCartParser();
+        Discount breadDiscount = new BreadDiscount(now().minusDays(1), now().plusDays(7));
+        Discount appleDiscount = new AppleDiscount(now().plusDays(3), now().plusMonths(1).with(lastDayOfMonth()));
+        pricingService = new PricingService(asList(breadDiscount, appleDiscount));
+
+    }
+
     public static void main(final String[] args) {
+        new PricingApplication().handle(args);
+    }
+
+    private  void handle(String[] args) {
         final List<String> argList = asList(args);
         validateArgument(argList);
         writeResult(new Result(getValue(args, argList)));
     }
 
-    private static double getValue(String[] args, List<String> argList) {
+    private double getValue(String[] args, List<String> argList) {
         final double value;
         if (argList.size() < 2) {
             value = pricingService.calculateValue(shoppingCartParser.parse(argList.get(0)));
@@ -42,12 +52,12 @@ public class PricingApplication {
         return value;
     }
 
-    private static void writeResult(Result result) {
+    private  void writeResult(Result result) {
         final String resultString = serialiseResult(result);
         System.out.println(resultString);
     }
 
-    private static String serialiseResult(Result result) {
+    private  String serialiseResult(Result result) {
         final ObjectMapper objectMapper = new ObjectMapper();
         final String resultString;
         try {
@@ -58,7 +68,7 @@ public class PricingApplication {
         return resultString;
     }
 
-    private static void validateArgument(List<String> argList) {
+    private  void validateArgument(List<String> argList) {
         if (argList.size() < 1) {
             throw new IllegalArgumentException(VALIDATION_FAILURE_MESSAGE);
         }
