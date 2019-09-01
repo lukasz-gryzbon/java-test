@@ -1,6 +1,7 @@
 package com.test.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.model.ProductEnum;
 
@@ -14,6 +15,11 @@ public class ShoppingCartParser {
     public Map<ProductEnum, Integer> parse(String shoppingCartJson) throws IOException {
 
         final ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(shoppingCartJson.toUpperCase(), typeRef);
+
+        try {
+            return objectMapper.readValue(shoppingCartJson.toUpperCase(), typeRef);
+        } catch (JsonMappingException e) {
+            throw new IllegalArgumentException("Unknown item in te shopping cart");
+        }
     }
 }

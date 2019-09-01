@@ -9,7 +9,9 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import com.test.model.ProductEnum;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.io.IOException;
 import java.util.Map;
@@ -17,6 +19,9 @@ import java.util.Map;
 public class ShoppingCartParserTest {
 
     private ShoppingCartParser shoppingCartParser = new ShoppingCartParser();
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void shouldParseJsonWithSingleItem() throws IOException {
@@ -48,4 +53,15 @@ public class ShoppingCartParserTest {
         assertThat(shoppingCart.get(APPLE), is(4));
     }
 
+    @Test
+    public void shouldFailWhenUnknownItemWithMeaningfulMessage() throws IOException {
+        expectedException.expectMessage("Unknown item in te shopping cart");
+        expectedException.expect(IllegalArgumentException.class);
+
+        // GIVEN
+        final String shoppingCartJson = "{\"pear\":1}";
+
+        // WHEN
+        shoppingCartParser.parse(shoppingCartJson);
+    }
 }
