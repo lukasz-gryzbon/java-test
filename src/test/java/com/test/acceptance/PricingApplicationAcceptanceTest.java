@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 public class PricingApplicationAcceptanceTest {
@@ -20,7 +21,7 @@ public class PricingApplicationAcceptanceTest {
     }
 
     @Test
-    public void shouldCalculate3TinsOfSoupAnd2LoavesOfBreadBoughtToday() {
+    public void shouldCalculate3TinsOfSoupAnd2LoavesOfBreadBoughtToday() throws IOException {
         // GIVEN
         final String shoppingCartItemsJson = "{\"soup\":3, \"bread\":2}";
 
@@ -33,7 +34,7 @@ public class PricingApplicationAcceptanceTest {
     }
 
     @Test
-    public void shouldCalculate6ApplesAndABottleOfMilkBoughtToday() {
+    public void shouldCalculate6ApplesAndABottleOfMilkBoughtToday() throws IOException {
         // GIVEN
         final String shoppingCartItemsJson = "{\"apple\":6, \"milk\":1}";
 
